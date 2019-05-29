@@ -1,0 +1,29 @@
+<!-- main app container -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 offset-md-2">
+			<h2 class="mb-5">Welcome to BOM (Sydney) Weather API demo</h2>
+			<form name="mailForm" (ngSubmit)="f.form.valid && submit()" #f="ngForm" novalidate>
+				<div class="form-group">
+					<select class="mdb-select md-form colorful-select dropdown-primary"
+					id="yearInput" name="yearInput"
+					[(ngModel)]="model.yearInput" #yearInput="ngModel" (change)="change()">
+						<option value="1">Option 1</option>
+						<option value="2">Option 2</option>
+						<option value="3">Option 3</option>
+						<option value="4">Option 4</option>
+						<option value="5">Option 5</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="Weather API Output">Weather API data output</label>
+					<textarea class="form-control" id="weatherDataOutput" name="weatherDataOutput"
+					[(ngModel)]="model.weatherDataOutput" #weatherDataOutput="ngModel" 
+					rows="10" readonly></textarea>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
