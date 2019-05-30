@@ -5,12 +5,12 @@
 	size="medium"
 	color="#fff"
 	type="ball-scale-multiple">
-	<p style="font-size: 20px; color: white">Loading...</p>
+	<p class="loader-title">Loading...</p>
 	</ngx-spinner>
 	<div class="row">
 		<div class="col-md-8 offset-md-2">
 			<h2 class="mb-5">Welcome to BOM (Sydney) Weather API demo</h2>
-			<form name="mailForm" #f="ngForm" novalidate>
+			<form name="weatherAPIForm">
 				<div class="form-group col-md-6">
 					<label for="Year">Select Year</label>
 					<select class="ml-2 mdb-select md-form colorful-select dropdown-primary"
@@ -25,17 +25,16 @@
 				</div>
 
 				<div class="form-group">
+					<label for="JSON editor Weather API Output">JSON editor Weather API data output</label>
+					<div id="jsoneditor"></div>
+				</div>
+
+				<div class="form-group">
 					<label for="Weather API Output">Weather API data output</label>
 					<textarea class="form-control" id="weatherDataOutput" name="weatherDataOutput"
 					[(ngModel)]="model.weatherDataOutput" #weatherDataOutput="ngModel" 
 					rows="10" readonly></textarea>
 				</div>
-
-				<div class="form-group">
-					<label for="JSON editor Weather API Output">JSON editor Weather API data output</label>
-					<div id="jsoneditor"></div>
-				</div>
-				
 			</form>
 		</div>
 	</div>
