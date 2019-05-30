@@ -29,11 +29,18 @@ export class WeatherAPIService {
     return throwError(errorMessage);
   }
 
+  getYears(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getYears`).pipe(
+      catchError(err => {
+        console.log('Handling service error locally and rethrowing it...', err);
+        return throwError(err);
+      })
+    );
+  }
+
   getWeatherData(data, model): Observable<any> {
     console.log('Request payload', data);
     this.errorOutput = model;
-    return this.http.post<any>(`${this.baseUrl}/getWeatherData`, data).pipe(
-      catchError(err => this.handleError(err))
-    );
+    return this.http.post<any>(`${this.baseUrl}/getWeatherData`, { year: data }).pipe(catchError(err => this.handleError(err)));
   }
 }

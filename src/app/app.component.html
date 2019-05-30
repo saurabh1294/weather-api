@@ -1,18 +1,26 @@
 <!-- main app container -->
 <div class="container">
+	<ngx-spinner
+	bdColor="rgba(51,51,51,0.8)"
+	size="medium"
+	color="#fff"
+	type="ball-scale-multiple">
+	<p style="font-size: 20px; color: white">Loading...</p>
+	</ngx-spinner>
 	<div class="row">
 		<div class="col-md-8 offset-md-2">
 			<h2 class="mb-5">Welcome to BOM (Sydney) Weather API demo</h2>
-			<form name="mailForm" (ngSubmit)="f.form.valid && submit()" #f="ngForm" novalidate>
-				<div class="form-group">
-					<select class="mdb-select md-form colorful-select dropdown-primary"
+			<form name="mailForm" #f="ngForm" novalidate>
+				<div class="form-group col-md-6">
+					<label for="Year">Select Year</label>
+					<select class="ml-2 mdb-select md-form colorful-select dropdown-primary"
 					id="yearInput" name="yearInput"
 					[(ngModel)]="model.yearInput" #yearInput="ngModel" (change)="change()">
-						<option value="1">Option 1</option>
-						<option value="2">Option 2</option>
-						<option value="3">Option 3</option>
-						<option value="4">Option 4</option>
-						<option value="5">Option 5</option>
+						<option value="1">Select Year</option>
+						<option value="-1">All time</option>
+						<option *ngFor="let year of years index as i" [ngValue]="i">
+							{{year}}
+						</option>
 					</select>
 				</div>
 
@@ -22,8 +30,15 @@
 					[(ngModel)]="model.weatherDataOutput" #weatherDataOutput="ngModel" 
 					rows="10" readonly></textarea>
 				</div>
+
+				<div class="form-group">
+					<label for="JSON editor Weather API Output">JSON editor Weather API data output</label>
+					<div id="jsoneditor"></div>
+				</div>
+				
 			</form>
 		</div>
 	</div>
 </div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/5.32.5/jsoneditor.css" rel="stylesheet" type="text/css">
 

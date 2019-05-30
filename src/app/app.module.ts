@@ -4,14 +4,11 @@ import { WeatherAPIComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { WeatherAPIService } from './shared/services/weather-api.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [WeatherAPIComponent],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, FormsModule, HttpClientModule, NgxSpinnerModule],
   providers: [{ provide: WeatherAPIService, useClass: WeatherAPIService }],
   bootstrap: [WeatherAPIComponent]
 })

@@ -39,6 +39,8 @@
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "cors": "latest",
+    "jsoneditor": "^5.33.0",
+    "ngx-spinner": "^6.1.2",
     "rxjs": "6.0.0",
     "yarn": "latest",
     "zone.js": "^0.8.26"
