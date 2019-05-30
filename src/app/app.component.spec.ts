@@ -15,12 +15,7 @@ describe('WeatherAPIComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        BrowserModule,
-        FormsModule,
-        HttpClientModule,
-        HttpClientTestingModule
-      ],
+      imports: [BrowserModule, FormsModule, HttpClientModule, HttpClientTestingModule],
       declarations: [WeatherAPIComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -54,10 +49,17 @@ describe('WeatherAPIComponent', () => {
         [WeatherAPIService, HttpTestingController],
         (weatherAPIService: WeatherAPIService, backend: HttpTestingController) => {
           let apiData = <any>{};
-          weatherAPIService.getWeatherData({year: 2019}, {model : {
-            weatheerDataOutput : {},
-            yearInput: {}
-          }}).subscribe(response => (apiData = response), fail);
+          weatherAPIService
+            .getWeatherData(
+              { year: 2019 },
+              {
+                model: {
+                  weatheerDataOutput: {},
+                  yearInput: {}
+                }
+              }
+            )
+            .subscribe(response => (apiData = response), fail);
           const req = backend.expectNone('/weatherAPIHost/public/api/v1/getWeatherData');
         }
       ));
@@ -72,19 +74,18 @@ describe('WeatherAPIComponent', () => {
     });
 
     it('should expect yearInput to be present', () => {
-        const yearInput: DebugElement = fixture.debugElement.query(By.css('#yearInput'));
-        expect(yearInput.nativeElement).toBeDefined();
+      const yearInput: DebugElement = fixture.debugElement.query(By.css('#yearInput'));
+      expect(yearInput.nativeElement).toBeDefined();
     });
 
     it('should expect weather data output field to be present', () => {
-        const weatherDataOutput: DebugElement = fixture.debugElement.query(By.css('#weatherDataOutput'));
-        expect(weatherDataOutput.nativeElement).toBeDefined();
+      const weatherDataOutput: DebugElement = fixture.debugElement.query(By.css('#weatherDataOutput'));
+      expect(weatherDataOutput.nativeElement).toBeDefined();
     });
 
     it('should expect jsonEditor to be present', () => {
-        const jsonEditor: DebugElement = fixture.debugElement.query(By.css('#jsoneditor'));
-        expect(jsonEditor.nativeElement).toBeDefined();
+      const jsonEditor: DebugElement = fixture.debugElement.query(By.css('#jsoneditor'));
+      expect(jsonEditor.nativeElement).toBeDefined();
     });
-
   });
 });
