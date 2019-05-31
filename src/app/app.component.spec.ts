@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, inject, tick, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,6 +8,8 @@ import { HttpTestingController, HttpClientTestingModule } from '@angular/common/
 import { WeatherAPIComponent } from './app.component';
 import { WeatherAPIService } from './shared/services/weather-api.service';
 import { FormsModule } from '@angular/forms';
+const json = require('../../mocks/weather.json');
+const allyears = require('../../mocks/allyears.json');
 
 describe('WeatherAPIComponent', () => {
   let component: WeatherAPIComponent;
@@ -28,20 +30,42 @@ describe('WeatherAPIComponent', () => {
     component.ngOnInit();
   });
 
-  describe('Book selector component', () => {
+  describe('Weather API component', () => {
     describe('ngOnInit()', () => {
       beforeEach(() => {
         component.ngOnInit();
       });
     });
 
-    describe('getYears()', () => {
+    describe('Verify CSV to JSON logic', () => {
+      it('Should read JSON file created from CSV and verify the number of json records', fakeAsync(() => {
+        component.ngOnInit();
+        const oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+        const firstDate = new Date(1858,1,1); //startYear
+        const secondDate = new Date(2019,5,28); //endYear/date
+        const diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+        // verify json length = number of days between start and end date
+        expect(json['WeatherData']['WeatherDataForYear'].length-1).toBe(diffDays);
+      }));
+    });
+
+    describe('change All Years', () => {
+      it('Should change year to all time data and fetch all time data', () => {
+        component.model.yearInput = -1;
+        component.change();
+        const startYear = 1858;
+        const endYear = 2019;
+        expect(allyears['WeatherData']['WeatherDataForYear'].length).toBe(endYear-startYear+1);
+      });
+    });
+
+    describe('Weather API mock tests', () => {
       it('[SUCCESS] should fetch years API data', inject(
         [WeatherAPIService, HttpTestingController],
         (weatherAPIService: WeatherAPIService, backend: HttpTestingController) => {
           let apiData = <any>{};
           weatherAPIService.getYears().subscribe(response => (apiData = response), fail);
-          const req = backend.expectNone('/weatherAPIHost/public/api/v1/getYears');
+          backend.expectNone('/weatherAPIHost/public/api/v1/getYears');
         }
       ));
 
@@ -60,7 +84,7 @@ describe('WeatherAPIComponent', () => {
               }
             )
             .subscribe(response => (apiData = response), fail);
-          const req = backend.expectNone('/weatherAPIHost/public/api/v1/getWeatherData');
+          backend.expectNone('/weatherAPIHost/public/api/v1/getWeatherData');
         }
       ));
     });
