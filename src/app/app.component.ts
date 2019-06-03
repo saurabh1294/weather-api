@@ -3,7 +3,7 @@ import { WeatherAPIService } from './shared/services/weather-api.service';
 import JSONEditor from 'jsoneditor/dist/jsoneditor.min.js';
 import { NgxSpinnerService } from 'ngx-spinner';
 
-/** @title Datepicker emulating a Year and month picker */
+/** @title Weather API component */
 @Component({
   selector: 'app-root app-weather-api-demo',
   templateUrl: 'app.component.html',
